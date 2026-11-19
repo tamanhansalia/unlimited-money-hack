@@ -1,0 +1,12 @@
+{
+  "name": "shorts-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ViralClip Studio workspace",
+  "scripts": {
+    "dev": "npm start --prefix desktop-app",
+    "start": "npm start --prefix desktop-app",
+    "build": "npm run build --prefix desktop-app",
+    "package": "npm run package --prefix desktop-app"
+  }
+}

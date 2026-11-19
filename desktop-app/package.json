@@ -1,0 +1,54 @@
+{
+  "name": "viralclip-studio",
+  "productName": "ViralClip Studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Desktop workspace for cutting, reviewing, and publishing vertical clips",
+  "main": "main.js",
+  "scripts": {
+    "icons": "node scripts/icons.mjs",
+    "prebuild": "node scripts/icons.mjs",
+    "build": "vite build",
+    "dev": "npm start",
+    "start": "npm run build && electron .",
+    "package": "npm run build && electron-builder --win --dir"
+  },
+  "build": {
+    "appId": "studio.viralclip.desktop",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "preload.js",
+      "library.js",
+      "publishing.js",
+      "source-info.js",
+      "package.json",
+      "assets/studio.ico"
+    ],
+    "extraResources": [
+      {
+        "from": "../AI-Youtube-Shorts-Generator/autoclipper.py",
+        "to": "engine/autoclipper.py"
+      },
+      {
+        "from": "../AI-Youtube-Shorts-Generator/clip_ai.py",
+        "to": "engine/clip_ai.py"
+      }
+    ],
+    "win": {
+      "icon": "assets/studio.ico"
+    }
+  },
+  "devDependencies": {
+    "@fontsource-variable/bricolage-grotesque": "5.3.0",
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "@phosphor-icons/web": "2.1.2",
+    "electron": "45.3.4",
+    "electron-builder": "26.18.0",
+    "vite": "8.3.8"
+  }
+}
