@@ -3,30 +3,29 @@
 .env.*
 !.env.example
 social_credentials.json
-**/social_credentials.json
-
-# Git metadata for the generator's original standalone repository
-AI-Youtube-Shorts-Generator/.git/
-AI-Youtube-Shorts-Generator/.claude/
 
 # Machine-local agent instructions and cached tooling
 .agents/
 .codex/
 .impeccable/
-desktop-app/.impeccable/
 
-# Dependencies, caches, and generated application output
-**/node_modules/
-**/venv/
-**/.venv/
-**/__pycache__/
-**/*.py[cod]
-**/.pytest_cache/
-**/.mypy_cache/
-**/.ruff_cache/
-**/dist/
-**/release/
-AI-Youtube-Shorts-Generator/output/
+# Dependencies and caches
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build output (recreated by `npm run build` and `npm run package`)
+desktop/dist/
+desktop/release/
+desktop/src/renderer/styles/icons.generated.css
+
+# Clip library and generator work files
+engine/output/
 
 # OS and editor files
 .DS_Store

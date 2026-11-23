@@ -1,0 +1,112 @@
+/* Autopilot page (ap-). The editor reuses the Settings cards, rows and sticky header. */
+@layer views {
+  .ap { max-width: 1160px; margin-inline: auto; }
+  .ap h1:focus, .ap-editor h1:focus { outline: none; }
+
+  /* ───────── What each run does ───────── */
+  .ap-steps {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap);
+    margin: 0 0 calc(var(--gap) * 1.6); padding: 0; list-style: none;
+  }
+  .ap-step {
+    display: flex; align-items: flex-start; gap: 11px; min-width: 0; padding: 14px 15px;
+    border-radius: var(--r-lg); border: 1px solid var(--stroke); background: var(--glass-1);
+  }
+  .ap-step__icon {
+    display: grid; place-items: center; flex: none; width: 31px; height: 31px;
+    border-radius: var(--r-sm); background: var(--surface); border: 1px solid var(--stroke); box-shadow: var(--hi);
+    color: var(--fg-2); font-size: 16px;
+  }
+  .ap-step__body { display: grid; gap: 3px; min-width: 0; font-size: 12px; line-height: 1.45; color: var(--fg-2); }
+  .ap-step__body strong { color: var(--fg); font-size: 13px; font-weight: 600; }
+  .ap-step__skill { color: var(--fg-3); font: 11px/1.4 var(--font-mono); }
+
+  .ap-empty { border-radius: calc(var(--r-xl) + 2px); }
+
+  /* ───────── Profile cards ───────── */
+  .ap-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 430px), 1fr)); gap: calc(var(--gap) * 1.35); align-items: start; }
+  .ap-card { display: grid; gap: 15px; min-width: 0; padding: 19px 21px; border-radius: calc(var(--r-xl) + 2px); }
+  .ap-card__head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .ap-card__icon {
+    display: grid; place-items: center; flex: none; width: 41px; height: 41px;
+    border-radius: var(--r-md); background: var(--glass-1); border: 1px solid var(--stroke);
+    color: var(--fg); font-size: 20px;
+  }
+  .ap-card__id { display: grid; gap: 2px; flex: 1; min-width: 0; }
+  .ap-card__name { font-size: 18.5px; }
+  .ap-card__niche { color: var(--fg-2); font-size: 12.5px; overflow-wrap: anywhere; }
+  .ap-card__status { flex: none; max-width: 48%; }
+  .ap-card__status .chip { max-width: 100%; overflow: hidden; }
+  .ap-card__status .chip span { overflow: hidden; text-overflow: ellipsis; }
+  .ap-card__error { margin: 0; }
+
+  .ap-now {
+    display: flex; align-items: center; gap: 11px; padding: 11px 13px;
+    border-radius: var(--r-md); border: 1px solid var(--accent-line); background: var(--accent-soft);
+  }
+  .ap-now[hidden] { display: none; }
+  .ap-now__text { display: grid; gap: 2px; min-width: 0; font-size: 12px; color: var(--fg-2); }
+  .ap-now__text strong { color: var(--fg); font-size: 13px; font-weight: 600; }
+
+  .ap-facts { display: grid; gap: 0; margin: 0; border-radius: var(--r-md); border: 1px solid var(--stroke); }
+  .ap-fact { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 9px 13px; font-size: 12.5px; }
+  .ap-fact + .ap-fact { border-top: 1px solid var(--stroke); }
+  .ap-fact dt { color: var(--fg-3); font-weight: 550; }
+  .ap-fact dd { margin: 0; color: var(--fg); overflow-wrap: anywhere; }
+
+  .ap-card__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .ap-card__actions .btn--ghost { margin-inline-start: auto; }
+
+  .ap-activity { display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--stroke); }
+  .ap-activity[hidden] { display: none; }
+  .ap-activity__title { font-size: 12px; font-weight: 600; color: var(--fg-3); }
+  .ap-activity > .btn { justify-self: start; }
+  .ap-log-list { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+  .ap-log { position: relative; display: grid; gap: 1px; padding-inline-start: 15px; font-size: 12.5px; line-height: 1.45; }
+  .ap-log::before {
+    content: ""; position: absolute; inset-inline-start: 2px; inset-block-start: 7px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--fg-4);
+  }
+  .ap-log[data-level="ok"]::before { background: var(--ok); }
+  .ap-log[data-level="warn"]::before { background: var(--warn); }
+  .ap-log[data-level="error"]::before { background: var(--bad); box-shadow: 0 0 0 2.5px var(--bad-soft); }
+  .ap-log__time { color: var(--fg-3); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .ap-log__text { color: var(--fg-2); overflow-wrap: anywhere; }
+  .ap-log[data-level="error"] .ap-log__text { color: var(--fg); }
+
+  /* ───────── Editor ───────── */
+  /* Both columns hold full cards here, unlike Settings' narrow inventory column. */
+  .ap-editor .settings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ap-editor__fields { min-inline-size: 0; padding: 0; margin: 0; border: 0; }
+  .ap-editor .settings-row.ap-stack { grid-template-columns: minmax(0, 1fr); gap: 9px; }
+  .ap-editor .settings-row textarea.input { min-height: 84px; font-family: var(--font-mono); font-size: 12.5px; }
+  .ap-editor .callout { margin: 0; }
+  .ap-editor .settings-card__rows > .callout { margin: 14px 21px; padding: 11px 13px; }
+  .ap-editor .settings-card__rows > .callout + * { border-top: 1px solid var(--stroke); }
+  .ap-publish-hint { flex-wrap: wrap; }
+  .ap-publish-hint > .btn { margin-inline-start: auto; }
+  .ap-editor .seg { justify-self: start; overflow-x: auto; scrollbar-width: none; }
+  .ap-editor .sheet-dests { justify-self: start; }
+  .ap-toggle { justify-self: start; }
+  .ap-times-field { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+  .ap-times { display: contents; }
+  .ap-time-row { display: inline-flex; align-items: center; gap: 2px; }
+  .ap-time { width: 118px; height: 33px; padding-inline: 11px; font-variant-numeric: tabular-nums; }
+  .ap-time::-webkit-calendar-picker-indicator { filter: invert(1); opacity: .55; }
+  .ap-editor__error { color: var(--bad); font-weight: 550; }
+
+  @container studio-content (max-width: 1010px) {
+    .ap-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ap-editor .settings-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @container studio-content (max-width: 560px) {
+    .ap-steps { grid-template-columns: minmax(0, 1fr); }
+    .ap-card { padding: 17px; }
+    .ap-fact { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+    .ap-card__status { max-width: 100%; }
+    .ap-card__head { flex-wrap: wrap; }
+  }
+}
+@layer shell {
+  .sidebar__dot--live { background: var(--accent-2); box-shadow: 0 0 0 3px var(--accent-soft); }
+}

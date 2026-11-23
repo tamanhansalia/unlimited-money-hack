@@ -1,0 +1,65 @@
+/* Generate page. Prefix: gen-. Clip controls reuse the library composer classes so they match that UI. */
+@layer views {
+  .gen { min-width: 0; }
+
+  .gen-grid {
+    display: grid; align-items: start; gap: calc(var(--gap) * 1.25);
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  }
+  @container studio-content (max-width: 980px) {
+    .gen-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (min-height: 740px) {
+    @container studio-content (width > 980px) {
+      .gen-preview { position: sticky; top: 0; }
+    }
+  }
+
+  .gen-card { min-width: 0; padding: 22.5px; border-radius: calc(var(--r-xl) + 2px); }
+  .gen-card > * + * { margin-top: 16px; }
+  .gen-card__title { font-size: 18.5px; }
+  .gen-card__sub { margin-top: 5px; font-size: 13px; color: var(--fg-2); }
+  .gen-section { display: grid; gap: 12px; border-top: 1px solid var(--stroke); padding-top: 14px; }
+  .gen-section .field > span, .gen-preview-controls .field > span { font-weight: 550; font-size: 13px; }
+  .gen-pair, .gen-ranges { display: grid; gap: 10px; }
+  .gen-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gen-range { border-radius: var(--r-md); border: 1px solid var(--stroke); padding: 10px; }
+  .gen-range > button { margin-top: 4px; }
+  .gen-check { display: flex; align-items: center; gap: 8px; }
+  .gen-advanced summary { cursor: pointer; font-weight: 600; }
+  .gen-advanced[open] > * + * { margin-top: 12px; }
+  .gen-error { color: #ff9e9e; }
+  .gen-source-frame { display: block; max-width: 100%; max-height: 300px; touch-action: none; cursor: crosshair; width: auto; height: auto; }
+  .gen-preview-controls { display: flex; align-items: end; gap: 8px; }
+  .gen-preview-controls .field { min-width: 0; flex: 1; }
+  .gen-output { position: relative; max-width: 246px; margin-inline: auto; background: #000; border-radius: var(--r-md); overflow: hidden; }
+  .gen-output canvas { display: block; width: 100%; }
+  .gen-subtitle-overlay { position: absolute; inset-inline: 0; pointer-events: none; }
+  .gen-subtitle-overlay > * { display: block; width: 100%; }
+  .gen-subtitle-sample { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0 8px;
+    color: var(--fg-2); font-size: 13px; }
+  .gen-subtitle-sample [role="status"]:empty { display: none; }
+
+  .gen-subtitles legend { margin-bottom: 8px; font-size: 13px; font-weight: 550; }
+  .gen-subtitle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 114px), 1fr)); gap: 8px; }
+  .gen-subtitle-option { display: grid; grid-template-rows: 46px auto; gap: 6px; min-width: 0;
+    padding: 5px 5px 7px; border: 1px solid var(--stroke); border-radius: var(--r-md); cursor: pointer;
+    color: var(--fg-2); text-align: center; font-size: 12px; line-height: 1.25; }
+  .gen-subtitle-option:hover { color: var(--fg); background: var(--glass-1); }
+  .gen-subtitle-option:has(input:checked) { color: var(--fg); border-color: var(--accent); background: var(--glass-2); }
+  .gen-subtitle-option:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .gen-subtitle-thumb { display: grid; place-items: center; border-radius: calc(var(--r-md) - 3px); overflow: hidden;
+    background: linear-gradient(155deg, #333044, #1c1b25 62%, #121218); }
+  .gen-subtitle-thumb img { width: 132%; max-width: 280px; }
+  .gen-subtitle-off { position: relative; font-size: 18px; }
+  .gen-subtitle-off::after { content: ''; position: absolute; top: 50%; left: -8%; width: 116%; height: 1px;
+    background: currentColor; transform: rotate(-35deg); }
+
+  .gen-lengths { flex-wrap: wrap; width: fit-content; max-width: 100%; height: auto; }
+  .gen-lengths .seg__item { height: 32px; }
+
+  @container studio-content (max-width: 560px) {
+    .gen-card { padding: 17.5px; }
+    .gen-submit { width: 100%; }
+  }
+}

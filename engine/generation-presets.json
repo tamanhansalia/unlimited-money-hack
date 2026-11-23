@@ -1,0 +1,23 @@
+{
+  "lengths": {
+    "auto": {"minimum": 0, "maximum": 65, "label": "Auto", "hint": "Aim for 15–55 seconds. Use a shorter clip when needed."},
+    "15-30": {"minimum": 15, "maximum": 30, "label": "15–30 sec"},
+    "30-60": {"minimum": 30, "maximum": 60, "label": "30–60 sec"},
+    "60-120": {"minimum": 60, "maximum": 120, "label": "1–2 min"},
+    "120-300": {"minimum": 120, "maximum": 300, "label": "2–5 min"},
+    "10-13": {"minimum": 10, "maximum": 13, "hidden": true},
+    "30": {"minimum": 25, "maximum": 35, "hidden": true}
+  },
+  "orientations": ["auto", "vertical", "horizontal"],
+  "layouts": ["auto", "fit", "fill", "split", "reframe"],
+  "subtitleMargins": {"standard": 260, "split": 115, "previewInset": 24},
+  "subtitles": [
+    {"id": "classic", "label": "Classic Yellow"},
+    {"id": "clean", "label": "Clean White"},
+    {"id": "box", "label": "Bold Box"},
+    {"id": "karaoke", "label": "Karaoke Mint", "motion": true},
+    {"id": "punch", "label": "Punch Pop", "motion": true},
+    {"id": "spotlight", "label": "Spotlight Box", "motion": true},
+    {"id": "off", "label": "Off"}
+  ]
+}

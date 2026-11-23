@@ -1,0 +1,115 @@
+/* Source view: header card, toolbar and the grid of clip tiles. Prefix: src- */
+@layer views {
+  .src { min-width: 0; }
+  .src-crumb { margin-bottom: 13px; }
+  .src-back { margin-left: -6px; }
+  .src-content, .src-skeleton { display: grid; gap: 17.5px; }
+
+  /* ───────── Header ───────── */
+  .src-head {
+    --cover-w: 185.5px;
+    display: grid; grid-template-columns: var(--cover-w) minmax(0, 1fr); align-items: start;
+    gap: clamp(16px, 3vw, 30.5px);
+    padding: 17.5px;
+    border-radius: 25.5px;
+  }
+
+  /* The cover is the shared element of the library-card morph, so it keeps the card cover's look:
+     a rounded portrait mosaic of up to three posters on a dark media well. */
+  .src-cover {
+    position: relative; display: grid; gap: 2.5px; isolation: isolate;
+    width: var(--cover-w); aspect-ratio: 3 / 4;
+    border-radius: 21px; overflow: hidden;
+    background: var(--media-bg);
+    box-shadow: var(--shadow-1);
+  }
+  .src-cover::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); pointer-events: none; }
+  .src-cover[data-count="2"] { grid-template-columns: 1fr 1fr; }
+  .src-cover[data-count="3"] { grid-template-columns: 1.35fr 1fr; grid-template-rows: 1fr 1fr; }
+  .src-cover[data-count="3"] > :first-child { grid-row: 1 / span 2; }
+  .src-cell { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .src-cell .poster { position: absolute; inset: 0; object-position: 50% 30%; -webkit-user-drag: none; }
+
+  .src-info { display: flex; flex-direction: column; align-items: flex-start; align-self: stretch; gap: 11px; min-width: 0; padding-block: 3px; }
+  .src-title { width: fit-content; max-width: 100%; font-size: clamp(22.5px, 2.5vw, 32.5px); font-weight: 620; letter-spacing: -0.04em; line-height: 1.07; }
+  /* Shimmer sits behind the fallback title; only paint changes, so nothing shifts when the real title arrives. */
+  .src-title.is-resolving {
+    border-radius: var(--r-sm);
+    background: linear-gradient(100deg, var(--skeleton-a) 30%, var(--skeleton-b) 50%, var(--skeleton-a) 70%) 0 0 / 300% 100%;
+    box-shadow: 0 0 0 6.5px var(--skeleton-a);
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+  .src-byline { max-width: 100%; font-size: 14px; color: var(--fg-2); }
+  .src-stats { display: flex; flex-wrap: wrap; gap: 6.5px; }
+  .src-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 8px; }
+
+  /* ───────── Toolbar ───────── */
+  .src-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 9.5px 14.5px; }
+
+  /* ───────── Clip grid ───────── */
+  .src-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14.5px; }
+
+  .src-tile {
+    position: relative; display: block; width: 100%; align-self: start;
+    aspect-ratio: 9 / 16; padding: 0;
+    border-radius: 21px; overflow: hidden;
+    text-align: left;
+    /* Use white over imagery. */
+    color: #fff;
+    content-visibility: auto; contain-intrinsic-size: auto 160px auto 285px;
+    transition: transform var(--d) var(--ease), box-shadow var(--d) var(--ease), border-color var(--d) var(--ease);
+  }
+  .src-tile:hover, .src-tile:focus-visible { transform: translateY(-4px); border-color: var(--stroke-2); box-shadow: var(--hi), var(--shadow-2); }
+  .src-tile:active { transform: translateY(-2px) scale(0.985); }
+
+  .src-tile__media { position: absolute; inset: 0; }
+  .src-tile .poster { -webkit-user-drag: none; transition: opacity 0.4s var(--ease), transform 0.7s var(--ease); }
+  .src-tile:hover .poster, .src-tile:focus-visible .poster { transform: scale(1.04); }
+  .src-tile__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0) 24%, rgba(5, 5, 5, 0) 46%, rgba(5, 5, 5, 0.88) 100%); }
+
+  .src-tile__status, .src-tile__pos { position: absolute; top: 9.5px; }
+  .src-tile__status { left: 9.5px; }
+  .src-tile__pos { right: 9.5px; }
+  /* Many tiles on screen: drop the chip blur from ui.css and use a denser fill instead. */
+  .src-tile .chip--media { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(8, 8, 8, 0.62); }
+  .src-tile__status .chip--ok::before { background: color-mix(in srgb, var(--ok) 55%, white); }
+  .src-tile__status .chip--ready::before { background: color-mix(in srgb, var(--accent) 55%, white); }
+
+  .src-tile__play {
+    position: absolute; left: 50%; top: 44%;
+    display: grid; place-items: center; width: 48px; height: 48px; margin: -30px 0 0 -30px;
+    border-radius: 50%; font-size: 21.5px; color: #101010;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 9.5px 25.5px -8px rgba(0, 0, 0, 0.6);
+    opacity: 0; transform: scale(0.6); pointer-events: none;
+    transition: opacity var(--d) var(--ease), transform var(--d-slow) var(--spring);
+  }
+  .src-tile__play .ph-fill { margin-left: 2.5px; }
+  .src-tile:hover .src-tile__play, .src-tile:focus-visible .src-tile__play { opacity: 1; transform: scale(1); }
+
+  .src-tile__info { position: absolute; inset: auto 0 0 0; display: grid; gap: 4px; padding: 11px 12px 12px; }
+  .src-tile__title { font-size: 13.5px; font-weight: 600; line-height: 1.28; letter-spacing: -0.015em; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5); }
+  .src-tile__meta { font-size: 11.5px; font-weight: 500; color: rgba(255, 255, 255, 0.74); }
+
+  /* ───────── States ───────── */
+  .src-empty, .src-state { border-radius: 24px; }
+  .src-error-detail { max-width: 52ch; font-size: 11.5px; color: var(--fg-3); overflow-wrap: anywhere; }
+
+  .src-skel-cover { width: var(--cover-w); aspect-ratio: 3 / 4; border-radius: 21px; }
+  .src-skel-tile { width: 100%; aspect-ratio: 9 / 16; border-radius: 21px; }
+  .src-skel-chip { width: 73.5px; height: 21px; }
+  .src-skel-title { width: min(416px, 90%); height: 32px; border-radius: var(--r-sm); }
+  .src-skel-title--short { width: min(256px, 60%); }
+  .src-skel-line { width: 144px; margin-bottom: 3px; }
+  .src-skel-seg { width: 240px; max-width: 100%; height: 35px; }
+
+  /* ───────── Narrow windows ───────── */
+  @container studio-content (max-width: 900px) {
+    .src-head { --cover-w: min(176px, 56vw); grid-template-columns: minmax(0, 1fr); padding: 14.5px; border-radius: 22.5px; }
+    .src-info { padding-block: 0; }
+    .src-actions { margin-top: 3px; }
+  }
+  @container studio-content (max-width: 560px) {
+    .src-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9.5px; }
+  }
+}

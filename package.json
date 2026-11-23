@@ -1,12 +1,13 @@
 {
-  "name": "shorts-workspace",
+  "name": "2pixelhack-workspace",
   "version": "1.0.0",
   "private": true,
-  "description": "ViralClip Studio workspace",
+  "description": "2PixelHack: Electron desktop app and Python clip engine",
   "scripts": {
-    "dev": "npm start --prefix desktop-app",
-    "start": "npm start --prefix desktop-app",
-    "build": "npm run build --prefix desktop-app",
-    "package": "npm run package --prefix desktop-app"
+    "setup": "npm ci --prefix desktop",
+    "dev": "npm start --prefix desktop",
+    "start": "npm start --prefix desktop",
+    "build": "npm run build --prefix desktop",
+    "package": "npm run package --prefix desktop"
   }
 }

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- 2PixelHack app icon. The tile sits on Apple's 1024 px icon grid (824 px tile, 100 px margin).
+       After editing, run `npm run app-icon` to regenerate icon.png and icon.ico. The bare mark is logo.svg. -->
+  <defs>
+    <linearGradient id="tile" x1="0" y1="100" x2="0" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#17171F"/>
+      <stop offset="1" stop-color="#08080C"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="100" x2="0" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".04"/>
+    </linearGradient>
+    <linearGradient id="left" x1="0" y1="16" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B65CFC"/>
+      <stop offset="1" stop-color="#7430EB"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0" y1="16" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3FC8FA"/>
+      <stop offset="1" stop-color="#1483DD"/>
+    </linearGradient>
+    <linearGradient id="play" x1="99" y1="85" x2="175" y2="171" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A641FA"/>
+      <stop offset="1" stop-color="#1BA2EF"/>
+    </linearGradient>
+    <filter id="glow" filterUnits="userSpaceOnUse" x="-40" y="-40" width="336" height="336">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <g id="mark">
+      <g fill="none" stroke-width="29" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="url(#left)" d="M31 92V66a35 35 0 0 1 35-35h26M92 225H66a35 35 0 0 1-35-35v-26"/>
+        <path stroke="url(#right)" d="M164 31h26a35 35 0 0 1 35 35v26M225 164v26a35 35 0 0 1-35 35h-26"/>
+      </g>
+      <path fill="url(#play)" stroke="url(#play)" stroke-width="18" stroke-linejoin="round" d="M108 94v68l58-34Z"/>
+    </g>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#tile)"/>
+  <rect x="101.5" y="101.5" width="821" height="821" rx="183.5" fill="none" stroke="url(#rim)" stroke-width="3"/>
+  <g transform="translate(224 224) scale(2.25)">
+    <use href="#mark" filter="url(#glow)" opacity=".65"/>
+    <use href="#mark"/>
+  </g>
+</svg>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' data: blob:; media-src 'self' clip-media: blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="color-scheme" content="dark">
+  <title>2PixelHack</title>
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+
+  <div class="titlebar drag"><span class="titlebar__title truncate">2PixelHack</span></div>
+
+  <div class="workspace">
+    <aside class="sidebar" id="studio-sidebar" aria-label="Studio sidebar">
+      <div class="sidebar__head">
+        <a class="brand" href="#/" aria-label="2PixelHack, Library" title="2PixelHack">
+          <!-- Same mark as resources/logo.svg. -->
+          <svg class="brand__mark" viewBox="16 16 224 224" aria-hidden="true">
+            <defs>
+              <linearGradient id="brand-left" x1="0" y1="16" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#B65CFC"/><stop offset="1" stop-color="#7430EB"/>
+              </linearGradient>
+              <linearGradient id="brand-right" x1="0" y1="16" x2="0" y2="240" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#3FC8FA"/><stop offset="1" stop-color="#1483DD"/>
+              </linearGradient>
+              <linearGradient id="brand-play" x1="99" y1="85" x2="175" y2="171" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#A641FA"/><stop offset="1" stop-color="#1BA2EF"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke-width="29" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="url(#brand-left)" d="M31 92V66a35 35 0 0 1 35-35h26M92 225H66a35 35 0 0 1-35-35v-26"/>
+              <path stroke="url(#brand-right)" d="M164 31h26a35 35 0 0 1 35 35v26M225 164v26a35 35 0 0 1-35 35h-26"/>
+            </g>
+            <path fill="url(#brand-play)" stroke="url(#brand-play)" stroke-width="18" stroke-linejoin="round" d="M108 94v68l58-34Z"/>
+          </svg>
+          <span class="brand__name sidebar__label">2PixelHack</span>
+        </a>
+        <button class="sidebar__toggle" id="sidebar-toggle" type="button" aria-controls="studio-sidebar"
+          aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar">
+          <i class="ph ph-sidebar-simple" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <button class="sidebar__item sidebar__new" id="new-clips" type="button" aria-label="New clips" title="New clips">
+        <i class="ph ph-plus" aria-hidden="true"></i><span class="sidebar__label">New clips</span>
+        <kbd class="sidebar__shortcut" aria-hidden="true">N</kbd>
+      </button>
+
+      <nav class="sidebar__nav" aria-label="Studio">
+        <div class="sidebar__group">
+          <p class="sidebar__caption">Workspace</p>
+          <a class="sidebar__item" href="#/" data-nav="library" aria-label="Library" aria-current="page" title="Library">
+            <i class="ph ph-squares-four" aria-hidden="true"></i><span class="sidebar__label">Library</span>
+          </a>
+          <a class="sidebar__item" href="#/generate" data-nav="generate" aria-label="Generate" title="Generate">
+            <i class="ph ph-sparkle" aria-hidden="true"></i><span class="sidebar__label">Generate</span>
+          </a>
+          <a class="sidebar__item" href="#/autopilot" data-nav="autopilot" aria-label="Autopilot" title="Autopilot">
+            <i class="ph ph-robot" aria-hidden="true"></i><span class="sidebar__label">Autopilot</span>
+            <span class="sidebar__dot sidebar__dot--live" id="nav-autopilot-dot" aria-hidden="true" hidden></span>
+          </a>
+          <a class="sidebar__item" href="#/publishing" data-nav="publishing" aria-label="Publishing" title="Publishing">
+            <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i><span class="sidebar__label">Publishing</span>
+            <span class="sidebar__dot" id="nav-publishing-dot" aria-hidden="true" hidden></span>
+          </a>
+        </div>
+
+        <div class="sidebar__group sidebar__utilities">
+          <a class="sidebar__item" id="sidebar-jobs" href="#/jobs" data-nav="jobs" aria-label="Jobs" title="Jobs">
+            <i class="ph ph-queue" id="sidebar-jobs-icon" aria-hidden="true"></i>
+            <span class="ring" id="sidebar-jobs-ring" aria-hidden="true" hidden></span>
+            <span class="sidebar__label">Jobs</span><span class="sidebar__badge num" id="sidebar-jobs-count" aria-hidden="true" hidden></span>
+          </a>
+          <a class="sidebar__item" href="#/settings" data-nav="settings" aria-label="Settings" title="Settings">
+            <i class="ph ph-gear" aria-hidden="true"></i><span class="sidebar__label">Settings</span>
+          </a>
+        </div>
+      </nav>
+      <button class="sidebar__item sidebar__profile" id="sidebar-profile" type="button"
+        popovertarget="profile-picker" aria-label="Switch publishing profile" title="Switch publishing profile">
+        <i class="ph ph-user-circle" aria-hidden="true"></i>
+        <span class="sidebar__label truncate" id="sidebar-profile-name">Publishing profile</span>
+        <i class="ph ph-caret-up-down sidebar__label sidebar__profile-caret" aria-hidden="true"></i>
+      </button>
+      <div class="profile-picker" id="profile-picker" popover aria-label="Publishing profiles">
+        <p class="profile-picker__heading">Publishing profiles</p>
+        <div class="profile-picker__list" id="profile-picker-list"></div>
+        <a class="profile-picker__item profile-picker__manage" href="#/publishing" id="manage-profiles">
+          <i class="ph ph-gear" aria-hidden="true"></i> Manage profiles
+        </a>
+      </div>
+    </aside>
+
+    <main class="stage" id="stage" tabindex="-1">
+      <div class="views" id="views"></div>
+    </main>
+  </div>
+
+  <div class="toasts" id="toasts" role="region" aria-label="Notifications">
+    <div class="sr-only" role="status" aria-live="polite" aria-atomic="false"></div>
+    <div class="sr-only" role="alert" aria-atomic="false"></div>
+    <div class="toasts__stack"></div>
+  </div>
+</body>
+</html>

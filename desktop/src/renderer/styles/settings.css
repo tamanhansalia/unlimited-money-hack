@@ -1,0 +1,68 @@
+/* Settings uses the shell page header, glass surfaces and shared form controls. */
+@layer views {
+  .settings { max-width: 1160px; margin-inline: auto; }
+  .settings-head {
+    position: sticky; z-index: 1; inset-block-start: 0;
+    margin-bottom: 6px; padding-block: 6px 15px; background: var(--bg);
+  }
+  .settings-head h1:focus { outline: none; }
+  .settings :is(button, select) { scroll-margin-top: 90px; }
+  .settings-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .settings-feedback { color: var(--fg-2); font-size: 12px; }
+  .settings-feedback:empty { display: none; }
+
+  .settings-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .49fr);
+    align-items: start; gap: calc(var(--gap) * 1.35);
+  }
+  .settings-column { display: grid; gap: calc(var(--gap) * 1.35); min-width: 0; }
+  .settings-card { border-radius: calc(var(--r-xl) + 2px); min-width: 0; }
+  .settings-card__head { display: flex; align-items: center; gap: 12px; padding: 19px 21px; }
+  .settings-card__heading { flex: 1; min-width: 0; }
+  .settings-card__heading h2 { font-size: 18.5px; }
+  .settings-card__heading p { margin-top: 3px; color: var(--fg-2); font-size: 12.5px; }
+  .settings-card__icon {
+    display: grid; place-items: center; flex: none; width: 37px; height: 37px;
+    border-radius: var(--r-sm); background: var(--glass-1); border: 1px solid var(--stroke);
+    color: var(--fg-2); font-size: 19px;
+  }
+
+  .settings-card__rows { border-top: 1px solid var(--stroke); }
+  .settings-card__rows > * { padding: 16px 21px; }
+  .settings-card__rows > * + * { border-top: 1px solid var(--stroke); }
+  .settings-row, .settings .cli-field {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); align-items: center; gap: 5px 16px;
+  }
+  .settings-row label, .settings-row strong, .settings .cli-field > label { font-size: 13.5px; font-weight: 600; }
+  .settings-row__hint, .settings .cli-field__hint { margin-top: 3px; font-size: 12px; color: var(--fg-2); }
+  .settings-output-language { justify-self: start; color: var(--fg-2); font-size: 13.5px; }
+
+  .settings .cli-field { grid-template-columns: minmax(0, 1fr) minmax(0, .76fr) auto; column-gap: 8px; }
+  .settings .cli-field > label { grid-area: 1 / 1; align-self: end; }
+  .settings .cli-field__hint { grid-area: 2 / 1; align-self: start; margin: 0 8px 0 0; }
+  .settings .cli-field > .input { grid-area: 1 / 2 / 3 / 3; }
+  .settings .cli-field__actions { display: contents; }
+  .settings .cli-field__actions .btn { grid-area: 1 / 3 / 3 / 4; }
+  .settings .cli-field__actions .field__msg { grid-area: 3 / 2 / 4 / 4; overflow-wrap: anywhere; }
+
+  .settings-device .settings-card__head { flex-wrap: wrap; }
+  .settings-device .settings-card__head > .btn { margin-left: auto; }
+  .settings-device .cli-notice { margin: 0 21px 16px; }
+  .settings-clis { margin: 0; padding: 0 21px 7px; list-style: none; border-top: 1px solid var(--stroke); }
+  .settings-cli { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 0; }
+  .settings-cli + .settings-cli { border-top: 1px solid var(--stroke); }
+  .settings-cli__name { display: grid; gap: 2px; min-width: 0; font-size: 13px; font-weight: 550; }
+  .settings-cli__name code { color: var(--fg-3); font: 11.5px/1.4 var(--font-mono); }
+
+  @container studio-content (max-width: 1010px) {
+    .settings-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @container studio-content (max-width: 640px) {
+    .settings-row { grid-template-columns: minmax(0, 1fr); }
+    .settings .cli-field { grid-template-columns: minmax(0, 1fr) auto; }
+    .settings .cli-field > label, .settings .cli-field__hint { grid-column: 1 / -1; }
+    .settings .cli-field > .input { grid-area: 3 / 1; }
+    .settings .cli-field__actions .btn { grid-area: 3 / 2; }
+    .settings .cli-field__actions .field__msg { grid-area: 4 / 1 / 5 / -1; }
+  }
+}

@@ -1,0 +1,9 @@
+# Python dependencies for the clip engine (autoclipper.py, clip_ai.py).
+# FFmpeg (ffmpeg and ffprobe) must also be on PATH; it is not a pip package.
+# The default extra installs the YouTube challenge solver matched to yt-dlp.
+yt-dlp[default]>=2025.11.12
+faster-whisper>=1.0.0
+# faster-whisper 1.2.1 passes metadata_errors to av.open; PyAV 19 removed it.
+# Revisit this bound after https://github.com/SYSTRAN/faster-whisper/pull/1495 ships.
+av<19
+opencv-python-headless>=4.10,<5

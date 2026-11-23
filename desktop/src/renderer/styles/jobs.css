@@ -1,0 +1,47 @@
+@layer views {
+  .jobs { max-width: 980px; }
+  .jobs .page-title:focus { outline: none; }
+  .jobs__filters { flex-wrap: wrap; margin-bottom: 14px; }
+  .jobs__list { display: grid; gap: 10px; }
+  .jobs__empty { min-height: 200px; border-radius: var(--r-xl); }
+
+  .job { min-width: 0; padding: 16px; border-radius: var(--r-lg); }
+  .job[data-current] { border-color: var(--accent-line); }
+  .job:has(.job__title:focus-visible) { border-color: var(--accent); }
+  .job__head {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start; gap: 10px 12px;
+  }
+  .job__source-icon {
+    display: grid; place-items: center; width: 37px; height: 37px;
+    background: var(--glass-1); border: 1px solid var(--stroke); border-radius: var(--r-sm);
+    color: var(--fg-2); font-size: 19px;
+  }
+  .job__identity { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 8px; }
+  .job__identity > .chip { max-width: 100%; }
+  .job__identity > .chip span { overflow: hidden; text-overflow: ellipsis; }
+  .job__title { min-width: 0; font-size: 17px; overflow-wrap: anywhere; text-wrap: wrap; }
+  .job__title:focus-visible { outline: none; }
+  .job__message { color: var(--fg-2); font-size: 13px; margin-top: 3px; overflow-wrap: anywhere; }
+  .job__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+  .job__progress { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .job__progress .progress { flex: 1; }
+  .job__percent { min-width: 3ch; text-align: right; color: var(--fg-2); font-size: 12px; }
+  .job__output { border-top: 1px solid var(--stroke); margin-top: 10px; padding-top: 8px; }
+  .job__output summary {
+    display: flex; align-items: center; gap: 7px; width: fit-content; padding: 2px;
+    color: var(--fg-2); font-size: 12px; cursor: pointer;
+  }
+  .job__output summary:hover { color: var(--fg); }
+  .job__output[open] summary .ph { rotate: 90deg; }
+  .job__log {
+    margin: 8px 0 0; max-height: 176px; overflow: auto; padding: 10px 12px; border-radius: var(--r-sm);
+    background: var(--field); border: 1px solid var(--stroke);
+    color: var(--fg-2); font-size: 11.5px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+
+  @container studio-content (max-width: 640px) {
+    .job__head { grid-template-columns: auto minmax(0, 1fr); }
+    .job__actions { grid-column: 2; }
+  }
+}
